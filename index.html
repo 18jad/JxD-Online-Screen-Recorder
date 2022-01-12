@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--                          CSS Stylesheets                            -->
+    <link rel="stylesheet" href="./dist/style.css" />
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.12/plyr.css" />
+    <link rel="stylesheet" href="./dist/modal.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600&display=swap"
+    />
+    <!------------------------------------------------------------------------->
+    <title>JxD Screen Recorder</title>
+  </head>
+  <body class="bg-slate-800">
+    <header>
+      <h1
+        class="text-2xl text-center py-4 bg-slate-700 font-bold text-slate-400 border-b-2 border-slate-400 shadow-xl flex items-center justify-center gap-2"
+      >
+        <img src="./dist/logo.png" class="h-10" alt="" /> JxD SCREEN RECORDER
+      </h1>
+    </header>
+    <main class="">
+      <div class="monitor flex justify-center my-20">
+        <div class="screen_share mt-5 absolute h-[280px] w-[484px]">
+          <video
+            class="recording-video h-full w-full bg-black"
+            autoplay
+            src=""
+          ></video>
+        </div>
+        <img
+          src="https://purepng.com/public/uploads/large/purepng.com-monitormonitorscomputer-displayvisual-displayelectronicdisplay-devicecrystal-displaylcdledamoled-1701528362551z8hy9.png"
+          alt=""
+          class="h-[400px]"
+        />
+      </div>
+      <!-- Settings Modal -->
+      <div id="modal-custom" data-iziModal-group="grupo1">
+        <button data-iziModal-close class="icon-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <header
+          class="text-2xl font-bold text-center text-slate-400 bg-slate-600"
+        >
+          <h1 class="text-2xl font-bold py-4 text-slate-400">Settings</h1>
+        </header>
+        <div class="settings">
+          <div class="audio-settings">
+            <p>Audio Settings:</p>
+            <ul>
+              <li>Echo Cancellation:</li>
+              <li>Noise Cancellation:</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <div class="record_buttons flex items-center justify-center gap-5">
+        <button
+          class="start bg-slate-700 px-6 py-3 font-bold text-lg text-slate-200 border border-slate-500 w-80 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:opacity-90 disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          Start Recording
+        </button>
+        <button
+          id="settings"
+          class="trigger-custom"
+          data-izimodal-open="#modal-custom"
+        >
+          <i class="fas fa-cog text-2xl text-slate-200"></i>
+        </button>
+        <button
+          class="stop bg-slate-700 px-6 py-3 font-bold text-lg text-slate-200 border border-slate-500 w-80 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:opacity-90 disabled:opacity-30 disabled:cursor-not-allowed"
+          disabled
+        >
+          Stop Recording
+        </button>
+      </div>
+      <div class="recorded-part mt-20 hidden">
+        <h1 class="text-center text-2xl font-bold mb-5">Recorded Video:</h1>
+        <div
+          class="screen_share mt-5 h-[475px] w-[700px] flex justify-center items-center mx-auto mb-5"
+        >
+          <video
+            id="player"
+            class="recorded-video"
+            src=""
+            playsinline
+            controls
+            data-poster="/path/to/poster.jpg"
+          >
+            <!-- <source id="video-src" src="" type="video/mp4" /> -->
+          </video>
+        </div>
+        <div class="download-button flex items-center justify-center mt-10">
+          <a
+            href=""
+            class="download button dark hover:-translate-y-2 hover:shadow-xl shadow-md"
+            target="_blank"
+          >
+            <ul>
+              <li>&#68;ownload</li>
+              <li>&#68;ownloading</li>
+              <li>Downloaded</li>
+            </ul>
+            <div>
+              <svg viewBox="0 0 24 24"></svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </main>
+    <footer class="border-t border-slate-400 shadow-2xl">
+      <div class="footer_container">
+        <div class="flex items-center justify-center gap-2">
+          <img src="./dist/logo.png" class="h-6" alt="" />
+          <p>JxD Screen Recorder</p>
+        </div>
+        <p>JxD © 2022 Online free screen recorder</p>
+      </div>
+    </footer>
+    <!--                              Javascript                                 -->
+    <script src="https://cdn.plyr.io/3.6.12/plyr.js"></script>
+    <script src="./dist/script.js"></script>
+    <script>
+      const player = new Plyr("#player");
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.com/libraries/izimodal"></script>
+    <script src="./dist/download.js"></script>
+    <script src="./dist/modal.js"></script>
+    <!----------------------------------------------------------------------------->
+  </body>
+</html>
