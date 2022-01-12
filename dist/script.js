@@ -13,7 +13,7 @@ async function setupStream() {
     stream = await navigator.mediaDevices.getDisplayMedia({
       video: true,
       audio: true,
-     });
+    });
 
     audio = await navigator.mediaDevices.getUserMedia({
       audio: true,
