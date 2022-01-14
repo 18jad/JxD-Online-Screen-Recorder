@@ -5,4 +5,4 @@ Free online screen recorder, no tools / plugins needed, this is still in BETA i 
 - Gonna work on integrate upload to youtube as an option when you finish recording.
 - Gonna try to add a small video editor just to cut the video and trim it, and do some simple stuff.
 - Option to be able to draw on the screen for annotations. </br>
-Note that any of this might not be implemented depending on many reasons and conditions, if you liked the idea and would like to add some new features or do the one i wrote, feel free to fork the repo and contributte it!
+<b>Note that any of this might not be implemented depending on many reasons and conditions, if you liked the idea and would like to add some new features or do the one i wrote, feel free to fork the repo and contributte it!</b>
