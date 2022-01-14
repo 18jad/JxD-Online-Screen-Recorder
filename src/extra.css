@@ -7,6 +7,11 @@ body {
   font-family: Poppins !important;
 }
 
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 .download_button {
   margin: 20px;
   text-decoration: none;
@@ -419,20 +424,85 @@ footer {
 
 .logo {
   width: 180px;
-  font-size: 16px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo p {
-  white-space: normal;
-  word-break: keep-all;
 }
 
 h1 {
   font-size: 40px;
   color: #fff;
   font-weight: bold;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(204, 204, 204, 0.596);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 19px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #3ae949;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #3ae949;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.audio-header {
+  border: 1px solid rgba(180, 191, 243, 0.356);
+  border-right: none;
+}
+
+.video-header {
+  border: 1px solid rgba(180, 191, 243, 0.356);
+  border-left: none;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
 }

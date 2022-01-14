@@ -1,11 +1,21 @@
 let stream = null,
   audio = null,
+  video = null,
+  facecam = document.querySelector(".facecam"),
   mixedStream = null,
+  videoStream = null,
   recorder = null,
   startBtn = null,
   stopBtn = null,
   downloadBtn = null,
   recordedVideo = null,
+  setting = null,
+  echoCheck = document.getElementById("echoCheck"),
+  noiseCheck = document.getElementById("noiseCheck"),
+  muteCheck = document.getElementById("muteCheck"),
+  camCheck = document.getElementById("camCheck"),
+  campip = document.querySelector(".campip"),
+  pip = null,
   chunks = [];
 
 async function setupStream() {
@@ -16,7 +26,14 @@ async function setupStream() {
     });
 
     audio = await navigator.mediaDevices.getUserMedia({
-      audio: true,
+      audio: {
+        echoCancellation: echoCheck.checked,
+        noiseSuppression: noiseCheck.checked,
+        sampleSize: 16,
+        channelCount: 2,
+        sampleRate: 44100,
+      },
+      video: camCheck.checked,
     });
     setupVideoFeedback();
   } catch (err) {
@@ -24,11 +41,18 @@ async function setupStream() {
   }
 }
 
+function reqCamera() {
+  facecam.requestPictureInPicture();
+}
+
 function setupVideoFeedback() {
+  camCheck = document.getElementById("camCheck");
   if (stream) {
-    const video = document.querySelector(".recording-video");
+    video = document.querySelector(".recording-video");
     video.srcObject = stream;
     video.play();
+    facecam.srcObject = audio;
+    facecam.play();
   } else {
     console.log("No stream available");
   }
@@ -37,16 +61,32 @@ function setupVideoFeedback() {
 async function startRecording() {
   await setupStream();
   if (stream && audio) {
+    echoCheck = document.getElementById("echoCheck");
+    noiseCheck = document.getElementById("noiseCheck");
+    muteCheck = document.getElementById("muteCheck");
+    camCheck = document.getElementById("camCheck");
+    videoStream = new MediaStream([...stream.getTracks()]);
     mixedStream = new MediaStream([
       ...stream.getTracks(),
       ...audio.getTracks(),
     ]);
-    recorder = new MediaRecorder(mixedStream);
+    if (muteCheck.checked) {
+      recorder = new MediaRecorder(videoStream);
+    } else {
+      recorder = new MediaRecorder(mixedStream);
+    }
     recorder.ondataavailable = handleData;
     recorder.onstop = handleStop;
     recorder.start(200);
     startBtn.disabled = true;
+    setting.disabled = true;
     stopBtn.disabled = false;
+    if (camCheck.checked) {
+      pip.disabled = true;
+      facecam.onloadeddata = () => {
+        campip.click();
+      };
+    } else pip.disabled = false;
     console.log("Recording started!");
   } else {
     console.log("No stream..");
@@ -59,13 +99,19 @@ function handleData(e) {
 
 function stopRecording() {
   recorder.stop();
+  video = null;
   startBtn.disabled = false;
+  setting.disabled = false;
   stopBtn.disabled = true;
+  pip.disabled = true;
   console.log("Recording stopped...");
   console.log(chunks);
 }
 
 function handleStop(e) {
+  if (document.pictureInPictureElement) {
+    document.exitPictureInPicture();
+  }
   const blob = new Blob(chunks, {
     type: "video/mp4",
   });
@@ -94,7 +140,24 @@ window.addEventListener("load", () => {
   stopBtn = document.querySelector(".stop");
   downloadBtn = document.querySelector(".download");
   recordedVideo = document.querySelector(".recorded-video");
+  echoCheck = document.getElementById("echoCheck");
+  noiseCheck = document.getElementById("noiseCheck");
+  muteCheck = document.getElementById("muteCheck");
+  camCheck = document.getElementById("camCheck");
+  facecam = document.querySelector(".facecam");
+  setting = document.getElementById("settings");
+  pip = document.querySelector(".pip");
 
   startBtn.addEventListener("click", startRecording);
   stopBtn.addEventListener("click", stopRecording);
+  pip.addEventListener("click", () => {
+    if (document.pictureInPictureElement) {
+      // document.exitPictureInPicture();
+      alert("Please close the current running PiP first!");
+    } else {
+      if (video != null && document.pictureInPictureEnabled) {
+        video.requestPictureInPicture();
+      }
+    }
+  });
 });

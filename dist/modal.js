@@ -2,7 +2,7 @@ $(function () {
   /* Instantiating iziModal */
   $("#modal-custom").iziModal({
     overlayClose: false,
-    overlayColor: "rgba(0, 0, 0, 0.6)",
+    overlayColor: "rgba(0, 0, 0, 0.7)",
   });
 
   /*$(document).on('click', '.trigger-custom', function (event) {
@@ -1139,20 +1139,20 @@ $(function () {
       history: !1,
       restoreDefaultContent: !1,
       autoOpen: 0,
-      bodyOverflow: !1,
+      bodyOverflow: 1,
       fullscreen: !1,
       openFullscreen: !1,
-      closeOnEscape: !0,
-      closeButton: !0,
+      closeOnEscape: 1,
+      closeButton: 1,
       overlay: !0,
-      overlayClose: !0,
+      overlayClose: 1,
       overlayColor: "rgba(0, 0, 0, 0.4)",
       timeout: !1,
       timeoutProgressbar: !1,
       pauseOnHover: !1,
       timeoutProgressbarColor: "rgba(255,255,255,0.5)",
-      transitionIn: "comingIn",
-      transitionOut: "comingOut",
+      transitionIn: "flipInX",
+      transitionOut: "flipOutX",
       transitionInOverlay: "fadeIn",
       transitionOutOverlay: "fadeOut",
       onFullscreen: function () {},

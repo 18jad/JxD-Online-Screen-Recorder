@@ -10,26 +10,30 @@
     <link rel="stylesheet" href="./dist/modal.css" />
     <link
       rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600&display=swap"
     />
-	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2967608505118128"
-     crossorigin="anonymous"></script>
+    <link
+      rel="shortcut icon"
+      href="./src/images/favicon.ico"
+      type="image/x-icon"
+    />
     <!------------------------------------------------------------------------->
     <title>JxD Screen Recorder</title>
   </head>
   <body class="bg-slate-800">
-    <header>
-      <h1
+    <header
+      class="py-4 flex items-center justify-center bg-slate-700 font-bold text-slate-400 border-b-2 border-slate-400 shadow-xl"
+    >
+      <!-- <h1
         class="text-2xl text-center py-4 bg-slate-700 font-bold text-slate-400 border-b-2 border-slate-400 shadow-xl flex items-center justify-center gap-2"
       >
         <img src="./dist/logo.png" class="h-10" alt="" /> JxD SCREEN RECORDER
-      </h1>
+      </h1> -->
+      <img src="./src/images/logo.png" class="logo" alt="logo" />
     </header>
     <main class="">
       <div class="monitor flex justify-center my-20">
@@ -40,33 +44,9 @@
             src=""
           ></video>
         </div>
-        <img
-          src="https://purepng.com/public/uploads/large/purepng.com-monitormonitorscomputer-displayvisual-displayelectronicdisplay-devicecrystal-displaylcdledamoled-1701528362551z8hy9.png"
-          alt=""
-          class="h-[400px]"
-        />
+        <img src="./src/images/monitor.webp" alt="" class="h-[400px]" />
       </div>
-      <!-- Settings Modal -->
-      <div id="modal-custom" data-iziModal-group="grupo1">
-        <button data-iziModal-close class="icon-close">
-          <i class="fas fa-times"></i>
-        </button>
-        <header
-          class="text-2xl font-bold text-center text-slate-400 bg-slate-600"
-        >
-          <h1 class="text-2xl font-bold py-4 text-slate-400">Settings</h1>
-        </header>
-        <div class="settings">
-          <div class="audio-settings">
-            <p>Audio Settings:</p>
-            <ul>
-              <li>Echo Cancellation:</li>
-              <li>Noise Cancellation:</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!--  -->
+
       <div class="record_buttons flex items-center justify-center gap-5">
         <button
           class="start bg-slate-700 px-6 py-3 font-bold text-lg text-slate-200 border border-slate-500 w-80 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:opacity-90 disabled:opacity-30 disabled:cursor-not-allowed"
@@ -75,11 +55,22 @@
         </button>
         <button
           id="settings"
-          class="trigger-custom"
+          class="trigger-custom disabled:opacity-30 disabled:cursor-not-allowed"
           data-izimodal-open="#modal-custom"
+          title="Settings"
         >
           <i class="fas fa-cog text-2xl text-slate-200"></i>
         </button>
+        <button
+          class="pip disabled:opacity-30 disabled:cursor-not-allowed"
+          disabled
+          title="Picture in picture"
+        >
+          <i
+            class="fa-solid fa-arrow-up-right-from-square text-2xl text-slate-200"
+          ></i>
+        </button>
+
         <button
           class="stop bg-slate-700 px-6 py-3 font-bold text-lg text-slate-200 border border-slate-500 w-80 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:opacity-90 disabled:opacity-30 disabled:cursor-not-allowed"
           disabled
@@ -120,6 +111,17 @@
           </a>
         </div>
       </div>
+      <video class="facecam hidden" hidden autoplay src=""></video>
+      <button
+        class="campip hidden"
+        hidden
+        onclick="reqCamera()"
+        title="Picture in picture"
+      >
+        <i
+          class="fa-solid fa-arrow-up-right-from-square text-2xl text-slate-200"
+        ></i>
+      </button>
     </main>
     <footer class="border-t border-slate-400 shadow-2xl">
       <div class="footer_container">
@@ -130,6 +132,72 @@
         <p>JxD © 2022 Online free screen recorder</p>
       </div>
     </footer>
+    <!-- Settings Modal -->
+    <div id="modal-custom" data-iziModal-group="grupo1">
+      <button data-iziModal-close class="icon-close">
+        <i class="fas fa-times"></i>
+      </button>
+      <header
+        class="text-2xl font-bold text-center text-slate-400 border-b border-slate-400 bg-slate-600"
+      >
+        <h1 class="text-2xl font-bold py-4 text-slate-400">Settings</h1>
+      </header>
+      <div class="settings">
+        <div class="audio-settings">
+          <div
+            class="audio-header text-2xl text-slate-300 important ml-6 bg-slate-600 p-2 shadow-lg important"
+          >
+            <p class="">Audio Settings:</p>
+          </div>
+
+          <div class="p-2 ml-16">
+            <ul>
+              <li class="flex items-center gap-4 mb-4 text-slate-300 important">
+                <p class="text-2xl">&#9732; Echo Cancellation:</p>
+                <label class="switch">
+                  <input type="checkbox" id="echoCheck" />
+                  <span class="slider round"></span>
+                </label>
+              </li>
+              <li class="flex items-center gap-4 mb-4 text-slate-300 important">
+                <p class="text-2xl">&#9732; Noise Cancellation:</p>
+                <label class="switch">
+                  <input type="checkbox" id="noiseCheck" />
+                  <span class="slider round"></span>
+                </label>
+              </li>
+              <li class="flex items-center gap-4 text-slate-300 important">
+                <p class="text-2xl">&#9732; Mute Microphone:</p>
+                <label class="switch">
+                  <input type="checkbox" id="muteCheck" />
+                  <span class="slider round"></span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="video-settings mt-4">
+          <div
+            class="video-header text-2xl text-slate-300 important mr-6 bg-slate-600 p-2 shadow-lg important"
+          >
+            <p class="">Video Settings:</p>
+          </div>
+          <div class="p-2 ml-16">
+            <ul>
+              <li class="flex items-center gap-4 mb-4 text-slate-300 important">
+                <p class="text-2xl">&#9732; Enable Facecam:</p>
+                <label class="switch">
+                  <input type="checkbox" id="camCheck" />
+                  <span class="slider round"></span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
     <!--                              Javascript                                 -->
     <script src="https://cdn.plyr.io/3.6.12/plyr.js"></script>
     <script>
