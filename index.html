@@ -21,6 +21,12 @@
       href="./src/images/favicon.ico"
       type="image/x-icon"
     />
+    <style>
+      .plyr--video {
+        height: 100% !important;
+        max-height: 100% !important ;
+      }
+    </style>
     <!------------------------------------------------------------------------->
     <title>JxD Screen Recorder</title>
   </head>
@@ -41,6 +47,7 @@
           <video
             class="recording-video h-full w-full bg-black"
             autoplay
+            muted
             src=""
           ></video>
         </div>
@@ -59,7 +66,7 @@
           data-izimodal-open="#modal-custom"
           title="Settings"
         >
-          <i class="fas fa-cog text-2xl text-slate-200"></i>
+          <i class="fas fa-cog text-2xl text-slate-200"></i>`
         </button>
         <button
           class="pip disabled:opacity-30 disabled:cursor-not-allowed"
@@ -78,6 +85,7 @@
           Stop Recording
         </button>
       </div>
+      <div class="reference"></div>
       <div class="recorded-part mt-20 hidden">
         <h1 class="text-center text-2xl font-bold mb-5">Recorded Video:</h1>
         <div
@@ -89,25 +97,19 @@
             src=""
             playsinline
             controls
+            style="max-height: 100%"
             data-poster="/path/to/poster.jpg"
           >
             <!-- <source id="video-src" src="" type="video/mp4" /> -->
           </video>
         </div>
-        <div class="download-button flex items-center justify-center mt-10">
+        <div class="download-button flex items-center justify-center">
           <a
             href=""
             class="download button dark hover:-translate-y-2 hover:shadow-xl shadow-md"
             target="_blank"
           >
-            <ul>
-              <li>&#68;ownload</li>
-              <li>&#68;ownloading</li>
-              <li>Downloaded</li>
-            </ul>
-            <div>
-              <svg viewBox="0 0 24 24"></svg>
-            </div>
+            Download
           </a>
         </div>
       </div>
@@ -134,8 +136,8 @@
     </footer>
     <!-- Settings Modal -->
     <div id="modal-custom" data-iziModal-group="grupo1">
-      <button data-iziModal-close class="icon-close">
-        <i class="fas fa-times"></i>
+      <button data-iziModal-close class="icon-close z-50">
+        <i class="fa-solid fa-xmark"></i>
       </button>
       <header
         class="text-2xl font-bold text-center text-slate-400 border-b border-slate-400 bg-slate-600"
@@ -206,7 +208,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
     <script src="https://cdnjs.com/libraries/izimodal"></script>
-    <script src="./dist/download.js"></script>
     <script src="./dist/modal.js"></script>
     <script src="./dist/script.js"></script>
     <!----------------------------------------------------------------------------->

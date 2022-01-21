@@ -18,10 +18,20 @@ let stream = null,
   pip = null,
   chunks = [];
 
+// flip front and back camera
+/*
+var front = false;
+document.getElementById('flip-button').onclick = function() { front = !front; };
+
+var constraints = { video: { facingMode: (front? "user" : "environment") } };
+*/
+
 async function setupStream() {
   try {
     stream = await navigator.mediaDevices.getDisplayMedia({
-      video: true,
+      video: {
+        frameRate: { ideal: 60, max: 120 },
+      },
       audio: true,
     });
 
@@ -123,8 +133,9 @@ function handleStop(e) {
   recordedVideo.onloadeddata = () => {
     recordedVideo.play();
     const rc = document.querySelector(".recorded-part");
+    const rfc = document.querySelector(".reference");
     rc.classList.remove("hidden");
-    rc.scrollIntoView({ behavior: "smooth", block: "start" });
+    rfc.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   stream.getTracks().forEach((track) => {
     track.stop();
